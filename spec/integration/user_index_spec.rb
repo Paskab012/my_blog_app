@@ -11,8 +11,8 @@ RSpec.describe 'Users index page', type: :feature do
                           photo: 'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')
 
     visit '/users/sign_in'
-    fill_in 'Username/Email', with: 'evren@gmail.com'
-    fill_in 'Password', with: 'abcdef'
+    fill_in 'Username/Email', with: 'pascalkabika123@gmail.com'
+    fill_in 'Password', with: 'Mpangirwa@681'
     click_button 'Log in'
 
     @post1 = @user1.posts.create!(title: 'test_1', text: 'Test cases 1')

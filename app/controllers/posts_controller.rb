@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  load_and_authorize_resource
   def index
     @user = all_users_post_controller
     @posts = @user.posts.includes(:comments).order('id asc')
@@ -28,6 +29,14 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def destroy
+    @post = Post.find(params[:id])
+    @author = @post.author
+    @author.posts_counter -= 1
+    @post.destroy!
+    redirect_to user_posts_path(id: @author.id), notice: 'Post was deleted successfully!'
+  end
 
   def post_params
     params.require(:post).permit(:title, :text)

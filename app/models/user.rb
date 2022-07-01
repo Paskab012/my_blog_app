@@ -15,6 +15,6 @@ class User < ApplicationRecord
   end
 
   def admin?
-    role == 'admin'
+    role == 'admin' ? true : false
   end
 end

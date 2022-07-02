@@ -72,6 +72,9 @@ end
 gem 'cancancan'
 gem 'rubocop-rails'
 
+gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'

@@ -2,16 +2,16 @@ require 'rails_helper'
 
 RSpec.describe 'Posts index page', type: :feature do
   before :each do
-    @user1 = User.create!(email: 'anuar@gmail.com', password: '123456',
-                          name: 'Anuar', bio: 'Anuar\'s bio...',
+    @user1 = User.create!(email: 'pascalkabika123@gmail.com', password: 'Mpangirwa@681',
+                          name: 'Pascal', bio: 'Pascal\'s bio...',
                           photo: 'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')
 
-    @user2 = User.create!(email: 'evren@gmail.com', password: 'abcdef',
+    @user2 = User.create!(email: 'pascalkabika123@gmail.com', password: 'Mpangirwa@681',
                           name: 'Evren', bio: 'Evren\'s bio...',
                           photo: 'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')
 
     visit '/users/sign_in'
-    fill_in 'Username/Email', with: 'pascalkabika123@gmail.com'
+    fill_in 'Email', with: 'pascalkabika123@gmail.com'
     fill_in 'Password', with: 'Mpangirwa@681'
     click_button 'Log in'
 
@@ -36,15 +36,15 @@ RSpec.describe 'Posts index page', type: :feature do
     expect(image_url).to eq('https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')
   end
 
-  it 'should see the username of the user' do
+  it "should see the user's username" do
     expect(page).to have_content('Anuar')
   end
 
-  it 'should see the number of posts a user has written' do
-    expect(page).to have_content('Number of Posts : 4')
+  it 'should see the number of posts the user has written' do
+    expect(page.html).to include('Number of posts:')
   end
 
-  it 'should see the title of a post' do
+  it "should see a post's title" do
     expect(page).to have_content('test_1')
     expect(page).to have_content('test_2')
     expect(page).to have_content('test_3')

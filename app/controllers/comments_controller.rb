@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
-
+  skip_before_action :authenticate_request
+  before_action :authenticate_request, only: [:add_comment]
+  protect_from_forgery with: :null_session, only: [:add_comment]
+  
   def create
     @comment = current_user.comments.new(comment_params)
     @comment.update_comments_counter

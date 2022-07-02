@@ -1,28 +1,20 @@
 class LikesController < ApplicationController
+  before_action :authenticate_user!
+
   def create
-    user = current_user
-    post = current_post
-    post.likes.where("author_id = #{user.id}").length.positive? && (
-      flash[:error] = 'Error: you have already liked this item.'
-      where_to_redirect(post)
-      return
-    )
-    like = Like.new(author: user, post: current_post)
-    unless like.save
-      flash[:error] = 'Error: Like can not be saved'
-      where_to_redirect(post)
-      return
+    @like = current_user.likes.new(like_params)
+    @like.update_likes_counter
+    respond_to do |format|
+      flash[:notice] = if @like.save
+                         'Liked'
+                       else
+                         'Something went wrong'
+                       end
+      format.html { redirect_to request.path }
     end
-    where_to_redirect(post)
   end
 
-  private
-
-  def where_to_redirect(post)
-    if params[:distination] == 'index'
-      redirect_back_or_to user_posts_url
-    else
-      redirect_back_or_to user_post_url(id: post.id)
-    end
+  def like_params
+    params.require(:like).permit(:author_id, :post_id)
   end
 end
